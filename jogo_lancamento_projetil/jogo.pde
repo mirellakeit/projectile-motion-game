@@ -1,4 +1,13 @@
 // Variáveis globais
+int chaoMinimo = 300;
+int largura = 1000; //por algum motivo, nao dá só pra usar "width" na função chão
+int altura = 600;
+int nSeg = largura/100;
+
+
+Chao chao = new Chao(nSeg, chaoMinimo, largura);
+
+
 Ponto pMinhoca = new Ponto(150, 200);
 Ponto pMinhoca2 = new Ponto(250, 100);
 
@@ -9,19 +18,32 @@ Minhoca m = new Minhoca(pMinhoca, b);     // Player
 Minhoca m2 = new Minhoca(pMinhoca2, b2); // Enemy
 
 void setup() {
-  size(400, 400);
+  size(800, 600);
+  chao.desenhaChao(nSeg);
+
+ 
+  /*
+  print("width = " + width);
   println("Controles:");
   println("- Mouse: Pressione e segure para carregar, solte para lançar");
   println("- SETAS: Movimentar player");
   println("- R: Resetar bolas");
   println("- L: Lançamento rápido do inimigo");
+  */
+
+  //println(nSeg);
+  //println(chao.segmentosChaoY);
+  for(int i = 0; i < nSeg - 1; i++){
+  //println("segmento[" + i + "] = " + chao.segmentosChaoY[i] + " ; segmento [" + i + 1 + "] = " + chao.segmentosChaoY[i+i]);
+  }
 }
 
 void draw() {
-  background(200);
+  //background(200);
   
+//  chao.desenhaChao(nSeg);
   // Atualiza e desenha player
-  m.atualizar();
+  m.atualizar(chao);
   m.desenha();
   
   // Atualiza e desenha inimigo

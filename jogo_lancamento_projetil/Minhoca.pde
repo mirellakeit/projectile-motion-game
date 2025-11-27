@@ -20,7 +20,7 @@ class Minhoca {
     }
   }
   
-  void mover() {
+  void mover(Chao chao) {
     this.colisaoParede();
     if(keyPressed) {
       if(keyCode == LEFT) {
@@ -29,11 +29,14 @@ class Minhoca {
       if(keyCode == RIGHT) {
         this.p.x += this.v;
       }
+     this.colisaoMinhocaChao(chao);
+
+      
     }
   }
   
-  void atualizar() {
-    mover();
+  void atualizar(Chao chao) {
+    mover(chao);
     
     // Processa o estado da bola (MÉTODO SIMPLIFICADO)
     b.processarEstado(this);
@@ -55,6 +58,11 @@ class Minhoca {
     stroke(255, 0, 0);
     line(centroX, centroY, linhaX, linhaY);
     stroke(0);
+  }
+
+  void colisaoMinhocaChao(Chao chao){
+    int segmento = (int) this.p.x/100;
+    
   }
 
   void desenha() {
