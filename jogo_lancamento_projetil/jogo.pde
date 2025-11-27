@@ -8,7 +8,7 @@ int nSeg = largura/100;
 Chao chao = new Chao(nSeg, chaoMinimo, largura);
 
 
-Ponto pMinhoca = new Ponto(150, 200);
+Ponto pMinhoca = new Ponto(0, 250);
 Ponto pMinhoca2 = new Ponto(250, 100);
 
 Bola b = new Bola(new Ponto(pMinhoca.x + 10, pMinhoca.y + 20), 8, 10, 0.2);
@@ -19,7 +19,7 @@ Minhoca m2 = new Minhoca(pMinhoca2, b2); // Enemy
 
 void setup() {
   size(800, 600);
-  chao.desenhaChao(nSeg);
+  //chao.desenhaChao(nSeg);
 
  
   /*
@@ -39,9 +39,9 @@ void setup() {
 }
 
 void draw() {
-  //background(200);
+  background(200);
   
-//  chao.desenhaChao(nSeg);
+  chao.desenhaChao(nSeg);
   // Atualiza e desenha player
   m.atualizar(chao);
   m.desenha();

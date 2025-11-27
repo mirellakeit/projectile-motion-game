@@ -39,7 +39,7 @@ class Minhoca {
     mover(chao);
     
     // Processa o estado da bola (MÉTODO SIMPLIFICADO)
-    b.processarEstado(this);
+    b.processarEstado(this, chao);
     
     // Mostra ângulo se estiver carregando
     if(b.estado == b.CARREGANDO) {
@@ -61,7 +61,10 @@ class Minhoca {
   }
 
   void colisaoMinhocaChao(Chao chao){
-    int segmento = (int) this.p.x/100;
+    
+    float alturaChao = chao.getAlturaChao(this.p.x + this.w/w);
+
+    this.p.y = alturaChao - this.h;
     
   }
 

@@ -29,18 +29,41 @@ class Chao {
   int [] criaChaoY(int n){
     int[] chaoY = new int[n + 1];
     
-    int a = 0;
-    int b;
-    for(int j = 0; j <= n; j++){
-      b = (int) random(-6,5);
-      chaoY[j] = (int) random(a, b);
-      a = b;
+    chaoY[0] = 0;
+    for(int j = 1; j <= n; j++){
+      chaoY[j] = (int) random(-3, 4);
       
     }
 
     return chaoY;
   }
   
+
+  float getAlturaChao(float x)
+  {
+    int segmento = (int) (x / (this.largura / this.nSegmentos));
+
+    //pra nao ir out of bounds
+    if(segmento < 0)
+    {
+      segmento = 0;
+    }
+    if(segmento >= this.nSegmentos)
+    {
+      segmento = this.nSegmentos - 1;
+    }
+
+
+    float x1 = segmentosChaoX[segmento];
+    float y1 = chaoMinimo + (coefAngular * segmentosChaoY[segmento]);
+    float x2 = segmentosChaoX[segmento + 1];
+    float y2 = chaoMinimo + (coefAngular * segmentosChaoY[segmento + 1]);
+
+    float t = (x - x1) / (x2 - x1);
+    return y1 + t * (y2 - y1);
+
+  }
+
   void desenhaChao(int nSeg){
     int x1, x2, y1, y2;
     for(int i = 0; i < nSeg; i++)
@@ -49,8 +72,8 @@ class Chao {
       y1 = this.chaoMinimo + (this.coefAngular * this.segmentosChaoY[i] );
       x2 = this.segmentosChaoX[i + 1];
       y2 = this.chaoMinimo + (this.coefAngular * this.segmentosChaoY[i + 1]);
-      print("(x1,y1) = " + "( " + x1 + " , " + y1 + ") ; ");
-      println("(x2,y2) = " + "( " + x2 + " , " + y2 + ")");
+      //print("(x1,y1) = " + "( " + x1 + " , " + y1 + ") ; ");
+      //println("(x2,y2) = " + "( " + x2 + " , " + y2 + ")");
 
       line(x1, y1, x2, y2);
   }

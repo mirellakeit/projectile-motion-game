@@ -73,14 +73,14 @@ class Bola {
   }
   
   // MÉTODO UNIFICADO PARA PROCESSAR ESTADO DA BOLA
-  void processarEstado(Minhoca minhocaDona) {
+  void processarEstado(Minhoca minhocaDona, Chao chao) {
     switch(estado) {
       case CARREGANDO:
         atualizaCarregamento();
         break;
         
       case EM_MOVIMENTO:
-        executarMovimento(minhocaDona);
+        executarMovimento(minhocaDona, chao);
         break;
         
       case PARADA:
@@ -93,9 +93,10 @@ class Bola {
     }
   }
   
-  void executarMovimento(Minhoca minhocaDona) {
+  void executarMovimento(Minhoca minhocaDona, Chao chao) {
     // Verifica colisões
     colisaoParede();
+    colisaoBolaChao(chao);
     if (minhocaDona != null) {
       colisaoMinhoca(minhocaDona);
     }
@@ -123,6 +124,16 @@ class Bola {
     if(this.p.y + this.r >= height || this.p.y - this.r <= 0) {
       this.vy = -this.vy;
     } 
+  }
+
+  void colisaoBolaChao(Chao chao){
+    float alturaChao = chao.getAlturaChao(this.p.x + this.r/2);
+    if(this.p.y + this.r > alturaChao)
+    {
+      this.p.y = alturaChao - this.r;
+      this.v = 0;
+    }
+
   }
   
   void colisaoMinhoca(Minhoca m) {
