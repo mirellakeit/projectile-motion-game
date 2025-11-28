@@ -2,9 +2,9 @@ class Bola {
   Ponto p, alvo;
   boolean movendo, foiAtirada;
   boolean carregandoLancamento = false;
-  float v, r, a, vx, vy;
+  float v, r, g, vx, vy, vento;
   float vBase, vAtual;
-  float vMin = 1, vMax = 50;
+  float vMin = 1, vMax = 20;
   int tempoCarregamentoInicio;
   float tempoMaxCarregamento = 2000.0;
   
@@ -14,11 +14,12 @@ class Bola {
   final int EM_MOVIMENTO = 2;
   int estado = PARADA;
   
-  Bola(Ponto np, float nv, float nr, float na) {
+  Bola(Ponto np, float nv, float nr, float ng, float nVento) {
     this.p = np;
     this.v = nv;
     this.r = nr;
-    this.a = na;
+    this.g = ng;
+    this.vento = nVento;
     vx = 0;
     vy = 0;
     alvo = null;
@@ -72,7 +73,6 @@ class Bola {
     this.foiAtirada = false;
   }
   
-  // MÉTODO UNIFICADO PARA PROCESSAR ESTADO DA BOLA
   void processarEstado(Minhoca minhocaDona, Chao chao) {
     switch(estado) {
       case CARREGANDO:
@@ -105,7 +105,8 @@ class Bola {
     if(movendo && alvo != null) {
       this.p.x += this.vx;
       this.p.y += this.vy;
-      this.vy += this.a;
+      this.vx += this.vento;
+      this.vy += this.g;
     }
     
     // Marca como atirada quando sai da área da minhoca
@@ -130,8 +131,7 @@ class Bola {
     float alturaChao = chao.getAlturaChao(this.p.x + this.r/2);
     if(this.p.y + this.r > alturaChao)
     {
-      this.p.y = alturaChao - this.r;
-      this.v = 0;
+      this.reseta(this.p);
     }
 
   }
@@ -169,7 +169,9 @@ class Bola {
   }
   
   void desenha() {
+    if(this.movendo){
     circle(this.p.x, this.p.y, this.r * 2);
+    }
   }
   
   void reseta(Ponto novoPonto) {

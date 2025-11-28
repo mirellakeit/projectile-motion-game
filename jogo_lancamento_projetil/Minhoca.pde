@@ -3,12 +3,12 @@ class Minhoca {
   Bola b;
   float v, w, h;
   
-  Minhoca(Ponto np, Bola nb) {
+  Minhoca(Ponto np, Bola nb, float nw, float nh) {
     this.p = np;
     this.b = nb;
-    this.v = 5;
-    this.w = 20;
-    this.h = 40;
+    this.v = 2;
+    this.w = nw;
+    this.h = nh;
   }
   
   void colisaoParede() {
@@ -58,6 +58,16 @@ class Minhoca {
     stroke(255, 0, 0);
     line(centroX, centroY, linhaX, linhaY);
     stroke(0);
+  }
+  
+  void mostrarCarregamento(Bola b)
+  {
+    if(b.estado == 1){
+    int tempoAtual = millis() - b.tempoCarregamentoInicio;
+    float razaoDeCarga = min(tempoAtual, b.tempoMaxCarregamento) / b.tempoMaxCarregamento;
+    String texto = nf(razaoDeCarga * 100, 1, 1) + "%";
+    text(texto, this.p.x, this.p.y - 15);
+    }
   }
 
   void colisaoMinhocaChao(Chao chao){

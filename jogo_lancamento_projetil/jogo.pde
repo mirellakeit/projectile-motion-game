@@ -4,33 +4,31 @@ int largura = 1000; //por algum motivo, nao dá só pra usar "width" na função
 int altura = 600;
 int nSeg = largura/100;
 
+float GRAVIDADE = 0.2;
+float VENTO = -0.1;
+float alturaMinhoca = 25, larguraMinhoca = 15;
 
 Chao chao = new Chao(nSeg, chaoMinimo, largura);
 
+float chaoMinhoca1 = chao.getAlturaChao(20);
+float chaoMinhoca2 = chao.getAlturaChao(520);
 
-Ponto pMinhoca = new Ponto(0, 250);
-Ponto pMinhoca2 = new Ponto(250, 100);
+Ponto pMinhoca = new Ponto(20, chaoMinhoca1 - alturaMinhoca);
+Ponto pMinhoca2 = new Ponto(520, chaoMinhoca2 - alturaMinhoca);
 
-Bola b = new Bola(new Ponto(pMinhoca.x + 10, pMinhoca.y + 20), 8, 10, 0.2);
-Bola b2 = new Bola(new Ponto(pMinhoca2.x + 10, pMinhoca2.y + 20), 5, 10, 0.2);
+Bola b = new Bola(new Ponto(pMinhoca.x + 10, pMinhoca.y + 20), 8, 5, GRAVIDADE, VENTO);
+Bola b2 = new Bola(new Ponto(pMinhoca2.x + 10, pMinhoca2.y + 20), 5, 5, GRAVIDADE, VENTO);
 
-Minhoca m = new Minhoca(pMinhoca, b);     // Player
-Minhoca m2 = new Minhoca(pMinhoca2, b2); // Enemy
+Minhoca m = new Minhoca(pMinhoca, b, larguraMinhoca, alturaMinhoca);     // Player
+Minhoca m2 = new Minhoca(pMinhoca2, b2, larguraMinhoca, alturaMinhoca); // Enemy
 
 void setup() {
+  //println(alturaInicialChao);
+
   size(800, 600);
   //chao.desenhaChao(nSeg);
 
  
-  /*
-  print("width = " + width);
-  println("Controles:");
-  println("- Mouse: Pressione e segure para carregar, solte para lançar");
-  println("- SETAS: Movimentar player");
-  println("- R: Resetar bolas");
-  println("- L: Lançamento rápido do inimigo");
-  */
-
   //println(nSeg);
   //println(chao.segmentosChaoY);
   for(int i = 0; i < nSeg - 1; i++){
@@ -40,10 +38,10 @@ void setup() {
 
 void draw() {
   background(200);
-  
   chao.desenhaChao(nSeg);
   // Atualiza e desenha player
   m.atualizar(chao);
+  m.mostrarCarregamento(b);
   m.desenha();
   
   // Atualiza e desenha inimigo
@@ -54,7 +52,7 @@ void draw() {
   b.desenha();
   b2.desenha();
 
-  b.colisaoMinhoca(m2);
+  //b.colisaoMinhoca(m2);
   
   // Info de debug
   fill(0);
