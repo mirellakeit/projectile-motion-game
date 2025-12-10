@@ -1,3 +1,5 @@
+
+//classe ponto para representar coordenadas x e y
 class Ponto
 {
   float x, y;
@@ -6,6 +8,7 @@ class Ponto
     this.x = nx;
     this.y = ny;
   }
+    //funcao que calcula o angulo entre dois pontos
     float angPontos(Ponto p2)
   {
     float dx = p2.x - this.x;

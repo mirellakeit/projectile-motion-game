@@ -6,6 +6,7 @@ class Chao {
   int coefAngular = 50;
   int chaoMinimo = 300;
 
+  //o chao é basicamente uma serie de segmentos de reta entre pontos aleatorios em y.
   Chao(int nseg, int nChaoMinimo, int nLargura)
   {
     this.nSegmentos = nseg;
@@ -15,6 +16,7 @@ class Chao {
     segmentosChaoY = criaChaoY(this.nSegmentos);
   }
 
+  //funcao para criar os arrays de pontos x do chao. por enquanto eles sempre teram o mesmo espaçamento em x.
   int [] criaChaoX(int n){
     int[] chaoX = new int[n + 1];
     
@@ -26,6 +28,7 @@ class Chao {
     return chaoX;
   }
   
+  //funcao para criar os arrays de pontos y do chao, com valores aleatorios.
   int [] criaChaoY(int n){
     int[] chaoY = new int[n + 1];
     
@@ -38,7 +41,7 @@ class Chao {
     return chaoY;
   }
   
-
+  //funcao que retorna a altura do chao em um ponto x qualquer, fazendo interpolação linear entre os segmentos.
   float getAlturaChao(float x)
   {
     int segmento = (int) (x / (this.largura / this.nSegmentos));
@@ -64,6 +67,7 @@ class Chao {
 
   }
 
+  //funcao que desenha o chao.
   void desenhaChao(int nSeg){
     int x1, x2, y1, y2;
     for(int i = 0; i < nSeg; i++)
@@ -80,11 +84,3 @@ class Chao {
   }
   
 }
-
-/*
-int nSeg = 6;
-int chaoMinimo = 300;
-
-Chao chao = new Chao(nSeg, chaoMinimo);
-chao.desenhaChao(chao.segmentosChaox, chao.segmentosChaoY, nSeg, chaoMinimo);
-*/
