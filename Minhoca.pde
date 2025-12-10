@@ -37,14 +37,10 @@ class Minhoca {
       float teta = asin((b.g * distancia) / (vo * vo));
       float xAlvo, yAlvo;
       println("vo = " + vo + "; teta = " + teta);
-      if(distancia > 0)
-      {
-        xAlvo = 50;
-      }
-      else
-      {
-        xAlvo = -50;
-      }
+      float distanciaMira = 100;
+      float direcao = (mAlvo.p.x > this.p.x) ? 1 : -1;
+      xAlvo = this.p.x + this.w/2 + cos(teta) * distanciaMira * direcao;
+      yAlvo = this.p.y + this.h/2 + sin(teta) * distanciaMira;
         yAlvo = teta * xAlvo;
         b.carregamentoInimigo(vo, new Ponto(xAlvo, yAlvo));
         println("x = " + xAlvo, "y = " + yAlvo);

@@ -87,4 +87,21 @@ void keyPressed() {
     */
     m2.lancamentoInimigo(b2,m);
   }
+  
+  if(keyCode == 'C' || keyCode == 'c') {
+    // Colisão de teste
+    chao = new Chao(nSeg, chaoMinimo, largura);
+
+    chaoMinhoca1 = chao.getAlturaChao(20);
+    chaoMinhoca2 = chao.getAlturaChao(520);
+
+    pMinhoca = new Ponto(20, chaoMinhoca1 - alturaMinhoca);
+    pMinhoca2 = new Ponto(520, chaoMinhoca2 - alturaMinhoca);
+
+    b = new Bola(new Ponto(pMinhoca.x + 10, pMinhoca.y + 20), 8, 5, GRAVIDADE, VENTO);
+    b2 = new Bola(new Ponto(pMinhoca2.x + 10, pMinhoca2.y + 20), 5, 5, GRAVIDADE, VENTO);
+
+    m = new Minhoca(pMinhoca, b, larguraMinhoca, alturaMinhoca);     // Player
+    m2 = new Minhoca(pMinhoca2, b2, larguraMinhoca, alturaMinhoca);
+  }
 }
